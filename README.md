@@ -71,8 +71,6 @@ class Customer
   include Mongoid::Document
   include Mongoid::ClassyDenorm
 
-  field :name,  type: String
-
   # REQUIRED: Define the relation you wish to denormalize
   has_many :appointments
 
@@ -101,10 +99,12 @@ class DenormAppointment
   # REQUIRED: Define a `has_one` relation to the "Source"
   belong_to :appointment
 
-  # EmbeddedDenorm will automatically detect the overlapping fields
-  # by name, and set only those ones
+  # ClassyDenorm will copy values to fields whose names match those of the Source document
   field :date,    type: Time
   field :status,  type: Symbol
+
+  # Fields whose names are not present on the Source document will be ignored
+  field :unused,  type: String
 
   # TIP: You may define custom methods on your denormalized objects. Consider using a mixin
   # to support the same methods on both the original and denormalized models.
@@ -139,11 +139,11 @@ customer.reload.denorm_appointments       #=> []
 ### Comparison with Mongoid::Alize
 
 [Mongoid::Alize](https://github.com/dzello/mongoid_alize) supports the full gamut of denormalization methods (bidirectional/push/pull).
-However, Alize persists denormalized data as a `Hash` (or an `Array` of `Hash`es). This has the following drawbacks:
+However, Alize persists denormalized data as a `Hash` (or `Array<Hash>`). This has the following drawbacks:
 
 * One cannot code methods into the denormalized `Hash` objects as if they were regular models.
 
-* Mongoid's default demongoization is used on the denormalized Hash, which does not preserve `DateTime` vs. `Date`, `String` vs. `Symbol`, etc. due to ambiguities between mapping MongoDB types to Ruby types [(see here)](https://github.com/dzello/mongoid_alize/issues/18).
+* Mongoid's default demongoization is used on the denormalized `Hash`, which does not preserve `DateTime` vs. `Date`, `String` vs. `Symbol`, etc. due to ambiguities between mapping MongoDB types to Ruby types [(see here)](https://github.com/dzello/mongoid_alize/issues/18).
 
 * Parts of the Alize gem code are in practice duplicating Mongoid's built-in embedded document functionality. This adds extra complexity and testing overhead to the gem.
 
