@@ -1,5 +1,4 @@
-mongoid_classy_denormalize
-==========================
+## Mongoid::ClassyDenormalize
 
 Mongoid denormalization to embedded models
 
