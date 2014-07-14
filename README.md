@@ -8,7 +8,7 @@
 
 Stay classy with an object-oriented approach to Mongoid denormalization.
 
-Unlike other Mongoid denormalization gems, `Mongoid::ClassyDenorm` is relatively on light meta-programming "magic",
+Unlike other Mongoid denormalization gems, Mongoid::ClassyDenorm is relatively on light meta-programming "magic",
 and does not auto-define the models or relations used to contain the denormalized data. This is by design, so
 that the implementer may employ custom techniques like polymorphism. Therefore, it is implementer must follow the below
 instructions carefully.
@@ -19,30 +19,32 @@ Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fant
 
 ### Usage
 
-* **Step 1)** Start with two "normalized" models, one (the *"Source"*) which you which you wish to denormalize to another (the *"Target"*).
+* **Step 1)** Choose a document (the *"Source"*) which you would like to denormalize into another document (the *"Target"*).
 
-* **Step 2)** Create an embedded model to contain your denormalized data (the *"Container"*):
-    * The *Container* SHOULD have a subset of the fields of the *Source*; ensure the field names and types are identical.
+* **Step 2)** Create an embedded document to contain the denormalized data (the *"Container"*):
+    * The *Container* SHOULD have a subset of the fields of the *Source*. Please ensure the field names and types are identical.
     * The *Container* MUST be `embedded_in` the *Target*.
     * The *Container* MUST `belongs_to` the *Source*.
     * It is possible (but not recommended) for the *Container* to be a non-embedded model.
 
-* **Step 3)** Use **one** of the following `classy_denorm` macro patterns to setup callbacks:
+* **Step 3)** Use **one** of the following three `classy_denorm` macro patterns to setup callbacks:
 
-   * In your *Target* model, you can use "bi-directional" or `:pull` style:
+   * In your *Target* document, you can use either bi-directional **OR** `:pull` mode:
 
    ```ruby
-   # Bi-directional push/pull sync
+   # in "Target" document - Bi-directional push/pull sync
    classy_denorm <source_relation>, <container_relation>
+   ```
 
-   # One-way sync via pull
+   ```ruby
+   # in "Target" document - One-way sync via pull
    classy_denorm <source_relation>, <container_relation>, only: :pull
    ```
 
-   * **OR** in your *Source* model, you can use `:push` style:
+   * **OR** in your *Source* document, you can use `:push` mode:
 
    ```ruby
-   # One-way sync via push
+   # in "Source" document - One-way sync via push
    classy_denorm <target_relation>, <container_relation>, only: :push
    ```
 
