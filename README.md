@@ -58,7 +58,7 @@ end
 class DenormAppointment
   include Mongoid::Document
 
-  # you MUST define the embedded relationship yourself
+  # You MUST define the embedded relationship yourself
   embedded_in :customer
 
   # EmbeddedDenorm will automatically detect the overlapping fields
@@ -66,7 +66,9 @@ class DenormAppointment
   field :date,    type: Time
   field :status,  type: Symbol
 
-  # you may define custom methods on your denormalized objects  
+  # You may define custom methods on your denormalized objects.
+  # Consider using a mixin to support the same methods on both
+  # the original and denormalized models.
   def late?
     status == :late
   end
