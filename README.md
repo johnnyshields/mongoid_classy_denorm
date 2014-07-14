@@ -25,11 +25,10 @@ Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fant
     * The *Container* SHOULD have a subset of the fields of the *Source*. Please ensure the field names and types are identical.
     * The *Container* MUST be `embedded_in` the *Target*.
     * The *Container* MUST `belongs_to` the *Source*.
-    * It is possible (but not recommended) for the *Container* to be a non-embedded model.
 
-* **Step 3)** Use **one** of the following three `classy_denorm` macro patterns to setup callbacks:
+* **Step 3)** Specify **one** of the following three `classy_denorm` macro patterns to setup callbacks:
 
-   * In your *Target* document, you can use either bi-directional **OR** `:pull` mode:
+   * In your *Target* document, you can specify either bi-directional mode **OR** `:pull` mode:
 
    ```ruby
    # in "Target" document - Bi-directional push/pull sync
@@ -41,7 +40,7 @@ Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fant
    classy_denorm <source_relation>, <container_relation>, only: :pull
    ```
 
-   * **OR** in your *Source* document, you can use `:push` mode:
+   * **OR** in your *Source* document, you specify use `:push` mode:
 
    ```ruby
    # in "Source" document - One-way sync via push
