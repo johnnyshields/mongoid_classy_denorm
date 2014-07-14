@@ -21,7 +21,7 @@ While I contributed several PRs to Alizé, ultimately I felt that a clean-slate 
 
 ### Usage
 
-```
+```ruby
 class Appointment  
   include Mongoid::Document
 
