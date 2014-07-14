@@ -1,18 +1,18 @@
+# WORK IN PROGRESS
+
 ## Mongoid::ClassyDenorm
 
 **Mongoid Denormalization via Embedded Models**
 
-# WORK IN PROGRESS
+Stay classy with an object-oriented approach to Mongoid denormalization.
 
 ![Stay Classy](https://cloud.githubusercontent.com/assets/27655/3567255/3d2382f4-0b14-11e4-87f7-954e7fd35ecb.jpg)
 
-Stay classy with an object-oriented approach to Mongoid denormalization.
-
-Unlike other Mongoid denormalization gems, Mongoid::ClassyDenorm is relatively on light meta-programming "magic",
-and does not auto-define the models or relations used to contain the denormalized data. This is by design, so
-that the implementer may employ custom techniques like polymorphism. Therefore, it is implementer must follow the below
-instructions carefully.
-
+Mongoid::ClassyDenorm defines model callback actions which copy denormalized data from a source document to an embedded
+"container" document within a target document. Pull (saving target "pulls" from source), Push (saving source "pushes" to
+target), and Bi-directional modes are supported. Unlike other Mongoid denormalization gems, Mongoid::ClassyDenorm does
+**NOT** auto-define models/data-structures/relations used to contain the denormalized data. This task is left to the
+implementor for maximum flexibility; a worked example is provided below.
 
 Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fantastic [Mongoid::Alize](https://github.com/dzello/mongoid_alize) gem.
 
