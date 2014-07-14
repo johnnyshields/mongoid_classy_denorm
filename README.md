@@ -19,9 +19,9 @@ Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fant
 
 ### Usage
 
-* **Step 1)** Choose a document (the *"Source"*) which you would like to denormalize into another document (the *"Target"*).
+* **Step 1)** Choose a document (the *"Source"*) to denormalize into another document (the *"Target"*).
 
-* **Step 2)** Create an embedded document to contain the denormalized data (the *"Container"*):
+* **Step 2)** Create a new embedded document to contain the denormalized data (the *"Container"*):
     * The *Container* SHOULD have a subset of the fields of the *Source*. Please ensure the field names and types are identical.
     * The *Container* MUST be `embedded_in` the *Target*.
     * The *Container* MUST `belongs_to` the *Source*.
