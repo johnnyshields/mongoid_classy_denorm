@@ -53,7 +53,8 @@ Mongoid::ClassyDenorm is inspired by [@dzello](https://github.com/dzello)'s fant
 * In this example, we wish to denormalize `Appointment` (the *source*) to `Customer` (the *target*), using `DenormAppointment` as the *container*.
 
 ```ruby
-class Appointment                  # the Source
+# the Source
+class Appointment
   include Mongoid::Document
 
   field :date,    type: Time
@@ -64,7 +65,9 @@ class Appointment                  # the Source
   belongs_to :customer
 end
 
-class Customer                     # the "Target"
+
+# the "Target"
+class Customer
   include Mongoid::Document
   include Mongoid::ClassyDenorm
 
@@ -76,7 +79,7 @@ class Customer                     # the "Target"
   # REQUIRED: Define the embedded relation to the denormalization target
   embeds_many :denorm_appointments do
 
-     # Optional: adding extensions to denormalized data (via a block) can be especially useful
+     # TIP: adding extensions to denormalized data (via a block) can be especially useful
      # to reduce query traffic. See: http://mongoid.org/en/mongoid/docs/relations.html
      def late_count
        @target.select{ |a| a.late? }.size
@@ -87,7 +90,9 @@ class Customer                     # the "Target"
   classy_denorm :appointments, :denorm_appointments
 end
 
-class DenormAppointment            # the "Container"
+
+# the "Container"
+class DenormAppointment
   include Mongoid::Document
 
   # REQUIRED: define an `embedded_in` to the "Target"
@@ -101,14 +106,15 @@ class DenormAppointment            # the "Container"
   field :date,    type: Time
   field :status,  type: Symbol
 
-  # You may define custom methods on your denormalized objects. Consider using a mixin
+  # TIP: You may define custom methods on your denormalized objects. Consider using a mixin
   # to support the same methods on both the original and denormalized models.
   def late?
     status == :late
   end
 end
 
-# Tying it all together
+
+# Usage Examples
 
 customer    = Customer.create
 appointment = Appointment.create(date: Date.today, status: :late, reason: "Apply for fish license")
