@@ -1,4 +1,4 @@
-## Mongoid::EmbeddedDenorm
+## Mongoid::EmbedDenorm
 
 **Mongoid denormalization via embedded models**
 
@@ -8,7 +8,7 @@
 
 ### Comparison with Mongoid::Alizé
 
-Mongoid::EmbeddedDenorm is inspired by [@dzello](https://github.com/dzello)'s fantastic [Mongoid::Alizé](https://github.com/dzello/mongoid_alize) gem. Alizé supports the full gamut of denormalization methods (push/pull/bidirectional), however it saves denormalized model data as nested hashes (or arrays of hashes). This has the following drawbacks:
+Mongoid::EmbedDenorm is inspired by [@dzello](https://github.com/dzello)'s fantastic [Mongoid::Alizé](https://github.com/dzello/mongoid_alize) gem. Alizé supports the full gamut of denormalization methods (push/pull/bidirectional), however it saves denormalized model data as nested hashes (or arrays of hashes). This has the following drawbacks:
 
 * One cannot code methods into the denormalized `Hash` objects as if they were regular models.
 
@@ -35,13 +35,13 @@ end
 
 class Customer
   include Mongoid::Document
-  include Mongoid::Alize
+  include Mongoid::EmbedDenorm
 
   field :name,  type: String
 
   has_many :appointments
 
-  embedded_denorm :appointments, as: :denorm_appointments do
+  embed_denorm :appointments, as: :denorm_appointments do
 
     # you can set custom extensions specific to your denormalized models
     # just like with normal embedded objects
