@@ -12,7 +12,7 @@ Mongoid::EmbeddedDenorm is inspired by @dzello's fantastic (Mongoid::Alizé)[htt
 
 * One cannot code methods into the denormalized Hash objects as if they were regular models.
 
-* Mongoid's default demongoization is used throughout the hash, which does not preserve DateTime vs. Date, String vs. Symbol, etc. due to ambiguities between mapping MongoDB types to Ruby types.
+* Mongoid's default demongoization is used on the denormalized Hash, which does not preserve DateTime vs. Date, String vs. Symbol, etc. due to ambiguities between mapping MongoDB types to Ruby types.
 
 * Parts of the Alizé gem code are in practice duplicating Mongoid's built-in embedded document functionality. This adds extra complexity and testing overhead to the gem.
 
