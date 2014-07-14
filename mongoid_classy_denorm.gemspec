@@ -1,12 +1,12 @@
 $:.push File.expand_path('../lib', __FILE__)
-require 'mongoid/embed_denorm/version'
+require 'mongoid/classy_denorm/version'
 
 Gem::Specification.new do |s|
-  s.name         = 'mongoid_embed_denorm'
-  s.version      = Mongoid::EmbedDenorm::VERSION
+  s.name         = 'mongoid_classy_denorm'
+  s.version      = Mongoid::ClassyDenorm::VERSION
   s.author       = 'John Shields'
   s.email        = 'johnnyshields@gmail.com'
-  s.homepage     = 'https://github.com/johnnyshields/mongoid_embed_denorm'
+  s.homepage     = 'https://github.com/johnnyshields/mongoid_classy_denorm'
   s.summary      = 'Mongoid denormalization via embedded models'
   s.description  = 'Stay classy with an object-oriented approach to Mongoid denormalization.'
   s.license      = 'MIT'

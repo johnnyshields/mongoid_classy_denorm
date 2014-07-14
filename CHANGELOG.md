@@ -1,4 +1,4 @@
-## Mongoid::EmbedDenorm Changelog
+## Mongoid::ClassyDenorm Changelog
 
 ### Unreleased
 
