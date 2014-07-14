@@ -73,4 +73,20 @@ class DenormAppointment
     status == :late
   end
 end
+
+# Tying it all together
+
+customer    = Customer.create
+appointment = Appointment.create(date: Date.today, status: :late, reason: "Apply for fish license")
+
+customer.appointments << appointment      # auto-create DenormAppointment record
+
+d_appointment = customer.denorm_appointments.first
+
+d_appointment.appointment == appointment  #=> true
+d_appointment.late?                       #=> true
+customer.denorm_appointments.late_count   #=> 1
+
+customer.appointments.clear
+customer.denorm_appointments              #=> []
 ```
